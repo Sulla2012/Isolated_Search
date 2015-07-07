@@ -3,11 +3,12 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 
-std::vector<std::float> parse2(std::istream& in)
+vector<float> parse2(std::istream& in)
 {
-	std::vector<std::float> output;
-    std::float num;
+	vector<float> output;
+    float num;
     while( in ) {
         std::cin >> num;  // throwaway 1
         std::cin >> num;  // data2
@@ -16,10 +17,10 @@ std::vector<std::float> parse2(std::istream& in)
     return output;
 }
 
-std::vector<std::int> parse1(std::istream& in)
+vector<int> parse1(std::istream& in)
 {
-	std::vector<std::int> output;
-    std::int num;
+	vector<int> output;
+    int num;
     while( in ) {
         std::cin >> num;  // throwaway 1
         output.push_back(num);
@@ -31,36 +32,38 @@ std::vector<std::int> parse1(std::istream& in)
 int main()
 {
   using namespace std;
-  using namespace boost;
+  //using namespace boost;
   
-  parse(std::cin);
-	std::ifstream file("scoutinglumi.tsv");
+  
+  //parse(std::cin);
+  std::ifstream file("scoutinglumi.tsv");
+  
+  //initialize vectors which will hold the run number and run luminosity.
+  vector<int> runs;
+  vector<float> runlumi;
 	
-	//initialize vectors which will hold the run number and run luminosity.
-	std::vector<std::int> runs;
-	std::vector<std::float> runlumi;
+  //runs = parse1(file);
+  //runlumi = parse2(file);
 	
-	runs = parse1(file);
-	runlumi = parse2(file);
+  //get the run number. This is some magic function defined in one of the libraries we're using, set to some number to run
+  int runNumber;
+  runNumber = 193833;
 	
-	//get the run number. This is some magic function defined in one of the libraries we're using, set to some number to run
-	runNumber = iEvent.id().run();
+  // Set the cuttoff Luminosity for the run
+  int lumiCutoff;
+  lumiCutoff = 100000;
 	
-	// Set the cuttoff Luminosity for the run
-	std::int lumiCutoff;
-	lumiCutoff = 100000;
+  //find the interator corresponding to the run number
+  int runtag;
+  runtag = find(runs.begin(),runs.end(), runNumber);
 	
-	//find the interator corresponding to the run number
-	std::int runtag;
-	runtag = find(runs.begin(),runs.end(), runNumber);
+  float luminosity;
+  luminosity = runlumi.at(runtag);
 	
-	std::float luminosity;
-	luminosity = runlumi.at(runtag);
-	
-	if(luminosity>lumiCutoff)
-	{
-		return;
-	}
+  if(luminosity>lumiCutoff)
+  {
+	return;
+  }
   
   //rest of the code goes here
   
