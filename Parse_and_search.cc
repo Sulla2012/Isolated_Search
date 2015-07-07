@@ -5,9 +5,9 @@
 #include <iostream>
 #include <fstream>
 
-vector<float> parse2(std::istream& in)
+std::vector<float> parse2(std::istream& in)
 {
-	vector<float> output;
+	std::vector<float> output;
     float num;
     while( in ) {
         std::cin >> num;  // throwaway 1
@@ -17,8 +17,9 @@ vector<float> parse2(std::istream& in)
     return output;
 }
 
-vector<int> parse1(std::istream& in)
+std::vector<int> parse1(std::istream& in)
 {
+	std::
 	vector<int> output;
     int num;
     while( in ) {
@@ -35,15 +36,16 @@ int main()
   //using namespace boost;
   
   
-  //parse(std::cin);
+  parse1(std::cin);
+  parse2(std::cin);
   std::ifstream file("scoutinglumi.tsv");
   
   //initialize vectors which will hold the run number and run luminosity.
   vector<int> runs;
   vector<float> runlumi;
 	
-  //runs = parse1(file);
-  //runlumi = parse2(file);
+  runs = parse1(file);
+  runlumi = parse2(file);
 	
   //get the run number. This is some magic function defined in one of the libraries we're using, set to some number to run
   int runNumber;
@@ -73,5 +75,3 @@ int main()
   
   return 0;
 }
-  
-
